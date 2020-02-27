@@ -1,5 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   background-color: #F0F6F7;
+  font-family: Helvetica, sans-serif;
+  color: #41484B;
 }
 
 body {
@@ -20,3 +26,14 @@ canvas {
   cursor: crosshair;
 }
 
+.block {
+  padding: 20px;
+  background-color: white;
+  overflow-y: scroll;
+  border-radius: 3px;
+  outline-color: #7085FD;
+}
+
+.block::-webkit-scrollbar { 
+  display: none; 
+}
