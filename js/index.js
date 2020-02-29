@@ -1,11 +1,35 @@
 import {
+  parseSVG,
   snapRectToGrid,
   offsetRectCoords,
   offsetBlockPosition
 } from "./utils.js";
 
+const GRID_SIZE = 16;
+const GRID_DOT_SIZE = 1;
+
+function createGrid(gridSize, dotSize, container) {
+  container.append(
+    parseSVG(`
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+    <pattern id="dot_grid" width="${gridSize}" height="${gridSize}" patternUnits="userSpaceOnUse">
+    <rect width='${gridSize}' height='${gridSize}' fill='none' />
+    <circle cx="${dotSize}" cy="${dotSize}" r="${dotSize}" fill="#E0E5E6" />
+    </pattern>
+    </defs>
+    
+    <rect width="100%" height="100%" fill="url(#dot_grid)" />
+    </svg>
+    `)
+  );
+}
+
 const grid = document.querySelector('.grid');
 
+createGrid(GRID_SIZE, GRID_DOT_SIZE, grid);
+  
+  
 grid.addEventListener('mousedown', (e) => {
   const startPosition = { x: e.clientX, y: e.clientY };
   
@@ -18,7 +42,7 @@ const handleMouseUp = (startPosition) => function f(e) {
     y: e.clientY - startPosition.y
   }
   
-  const rect = offsetRectCoords(snapRectToGrid(startPosition.x, startPosition.y, delta.x, delta.y, 14), 2);
+  const rect = offsetRectCoords(snapRectToGrid(startPosition.x, startPosition.y, delta.x, delta.y, GRID_SIZE), GRID_DOT_SIZE * 2);
 
   createBlock(
     rect.originX, 

@@ -3,6 +3,15 @@ export function roundValueToUnit(unit, value) {
   return Math.round(value / unit) * unit;
 }
 
+export function parseSVG(s) {
+  const div = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+  div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg">' + s + "</svg>";
+  const frag = document.createDocumentFragment();
+  while (div.firstChild.firstChild) frag.appendChild(div.firstChild.firstChild);
+  
+  return frag;
+}
+
 export function snapRectToGrid(originX, originY, width, height, gridUnit) {
   const rect = {
     originX,
