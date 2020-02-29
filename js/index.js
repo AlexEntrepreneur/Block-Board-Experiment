@@ -5,8 +5,10 @@ import {
   offsetBlockPosition
 } from "./utils.js";
 
-const GRID_SIZE = 16;
-const GRID_DOT_SIZE = 1;
+export const GRID_SIZE = 16;
+export const GRID_DOT_SIZE = 1;
+export const MINIMUM_BLOCK_WIDTH = GRID_SIZE * 10;
+export const MINIMUM_BLOCK_HEIGHT = GRID_SIZE * 5;
 
 function createGrid(gridSize, dotSize, container) {
   container.append(

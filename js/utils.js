@@ -1,3 +1,5 @@
+import { MINIMUM_BLOCK_WIDTH, MINIMUM_BLOCK_HEIGHT } from './index.js';
+
 export function roundValueToUnit(unit, value) {
   if (value % unit === 0) return value;
   return Math.round(value / unit) * unit;
@@ -13,18 +15,29 @@ export function parseSVG(s) {
 }
 
 export function snapRectToGrid(originX, originY, width, height, gridUnit) {
-  const rect = {
+  const rect = createRect(
     originX,
     originY,
     width,
-    height
-  };
+    height,
+    MINIMUM_BLOCK_WIDTH,
+    MINIMUM_BLOCK_HEIGHT
+  );
   
   for (const prop in rect) {
     rect[prop] = roundValueToUnit(gridUnit, rect[prop]);
   }
 
   return rect;
+}
+
+export function createRect(originX, originY, width, height, minWidth, minHeight) {
+  return {
+    originX,
+    originY,
+    width: width < minWidth ? minWidth : width,
+    height: height < minHeight ? minHeight : height
+  };
 }
 
 // Ensures shape sits on the grid even with negative width/height values
