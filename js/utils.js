@@ -35,8 +35,8 @@ export function createRect(originX, originY, width, height, minWidth, minHeight)
   return {
     originX,
     originY,
-    width: width < minWidth ? minWidth : width,
-    height: height < minHeight ? minHeight : height
+    width: Math.abs(width) < minWidth ? minWidth : width,
+    height: Math.abs(height) < minHeight ? minHeight : height
   };
 }
 
@@ -65,8 +65,10 @@ export function offsetRectCoords(rect, offset) {
 export function offsetBlockPosition(block, originX, originY, width, height) {
   const positionedBlock = block.cloneNode(true);
 
+  console.log(width, height);
   if (Math.abs(width) !== width) {
     positionedBlock.style.left = `${originX + width}px`;
+    
   } else {
     positionedBlock.style.left = `${originX}px`;
   }
